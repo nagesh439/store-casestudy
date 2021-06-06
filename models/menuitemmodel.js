@@ -18,6 +18,8 @@ var ItemSchema = new Schema({
         type:Number,
         default:100
     }
+}, {
+    timestamps: true // adds createdAt and updatedAt timestamps
 })
 var item = mongoose.model("item", ItemSchema);
 

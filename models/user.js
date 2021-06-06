@@ -45,7 +45,8 @@ const userSchema = mongoose.Schema({
         token: {
             type: String,
             required: true
-        }
+        },
+        loggedInAt:Date.now()
     }],
    
     superAdmin: {

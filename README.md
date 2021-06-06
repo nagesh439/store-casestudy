@@ -3,7 +3,7 @@
 
 
 # How to run this project
-    - Should have node and mongodb installed in the system
+    - Should have node and mongodb installed in the system and hit npm install
 
 # folder structure
 

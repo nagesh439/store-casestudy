@@ -10,6 +10,8 @@ var CategorySchema = new Schema({
     title: {type: String, required: true},
     type : {type: String, required: true},
     status:{type: Number, required: true}
+}, {
+    timestamps: true // adds createdAt and updatedAt timestamps
 })
 var Category = mongoose.model("category", CategorySchema); 
 

@@ -6,6 +6,8 @@ var BrandSchema = new Schema({
     // categoryId :{type: mongoose.Schema.ObjectId, ref : 'Category'},
     title : {type: String, required: true},
     status:{type: Number, required: true},
+}, {
+    timestamps: true // adds createdAt and updatedAt timestamps
 })
 var brand = mongoose.model("brand", BrandSchema);
 

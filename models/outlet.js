@@ -25,7 +25,9 @@ var OutletSchema = new Schema({
             type:Boolean,
             default:false
         }
-    }
+    },
+}, {
+    timestamps: true // adds createdAt and updatedAt timestamps
 })
 var outlet = mongoose.model("outlet", OutletSchema);
 
