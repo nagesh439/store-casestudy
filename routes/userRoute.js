@@ -53,4 +53,17 @@ module.exports = function(app){
             res.status(500).send();
         }
     });
+
+
+
+    app.post('/logoutAllUsers', auth, async (req, res) => {///logout all users
+        try {
+
+            // req.user.tokens = [];
+            // await req.user.save();
+            res.status(200).send();
+        } catch (err) {
+            res.status(500).send();
+        }
+    });
 }
