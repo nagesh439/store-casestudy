@@ -45,6 +45,7 @@ require('./routes/outletRoute')(app);
 require('./routes/brandRoute')(app);
 require('./routes/categoryRoute')(app);
 require('./routes/itemRoute')(app);
+require('./routes/userRoute')(app);
 
 server.listen(app.get('port'), function () {
     console.log("listerning")

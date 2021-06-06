@@ -1,4 +1,5 @@
 var Category = require('../models/categoryModel');
+const {auth} = require('../middleware/auth');
 
 
 
@@ -6,7 +7,7 @@ var Category = require('../models/categoryModel');
 
 
 module.exports = function (app){
-    app.post('/createCat', (req,res)=>{
+    app.post('/createCat',auth, (req,res)=>{
         var cat = new Category(req.body)
         cat.save().then(data=>{
             res.json({messeg:"success",data:data,status:200})
@@ -30,7 +31,7 @@ module.exports = function (app){
 
 
 
-    app.post('/updateCategory',(req,res)=>{
+    app.post('/updateCategory',auth,(req,res)=>{
             let id = req.query.id;
             try{
                 const obj = {};

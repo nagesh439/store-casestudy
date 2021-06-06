@@ -42,4 +42,4 @@ bower_components/
 node_angular/config.json
 /node_angular/config.json
 ./node_angular/config.json
-config.json
+# config.json

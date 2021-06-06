@@ -1,8 +1,9 @@
 var brand = require('../models/brand');
+const {auth} = require('../middleware/auth');
 
 
 module.exports = function (app){
-    app.post('/createBrand', (req,res)=>{
+    app.post('/createBrand',auth, (req,res)=>{
         var dbrand = new brand(req.body)
         dbrand.save().then(data =>{
             res.json({status:200,message:"success",data:data})
@@ -18,7 +19,7 @@ module.exports = function (app){
         })
     })
 
-    app.post('/updateBrand',(req,res)=>{
+    app.post('/updateBrand',auth,(req,res)=>{
         let id = req.body.id;
         brand.finOneAndUpdate({'_id':id}).exec((err,data)=>{
             console.log(err,data)

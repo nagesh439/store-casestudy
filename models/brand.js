@@ -4,8 +4,8 @@ var Schema = mongoose.Schema;
 var BrandSchema = new Schema({
     // outletId : {type: mongoose.Schema.ObjectId, ref : 'Outlet'},
     // categoryId :{type: mongoose.Schema.ObjectId, ref : 'Category'},
-    title : String,
-    status:Number
+    title : {type: String, required: true},
+    status:{type: Number, required: true},
 })
 var brand = mongoose.model("brand", BrandSchema);
 

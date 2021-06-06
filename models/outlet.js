@@ -4,14 +4,14 @@ var Schema = mongoose.Schema;
 
 
 var OutletSchema = new Schema({
-    outletName:String,
-    country:String,
-    city:String,
-    outletAddress:String,
-    phNo: String,
-    type:String,
-    status:Number,
-    email:String,
+    outletName:{type: String, required: true},
+    country:{type: String, required: true},
+    city:{type: String, required: true},
+    outletAddress:{type: String, required: true},
+    phNo: {type: String, required: true},
+    type:{type: String},
+    status:{type: Number, required: true},
+    email:{type: String, required: true},
     settings:{
         enable:{
             type:Boolean,

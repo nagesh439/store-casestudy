@@ -5,11 +5,11 @@ var Schema = mongoose.Schema;
 
 
 var CategorySchema = new Schema({
-    outletId : {type: mongoose.Schema.ObjectId, ref : 'OutletSchema'},
-    brandId :{type: mongoose.Schema.ObjectId, ref : 'BrandSchema'},
-    title: String,
-    type : String,
-    status:Number
+    outletId : {type: mongoose.Schema.ObjectId, ref : 'OutletSchema',required : true},
+    brandId :{type: mongoose.Schema.ObjectId, ref : 'BrandSchema',required : true},
+    title: {type: String, required: true},
+    type : {type: String, required: true},
+    status:{type: Number, required: true}
 })
 var Category = mongoose.model("category", CategorySchema); 
 

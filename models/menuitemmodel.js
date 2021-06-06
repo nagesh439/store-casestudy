@@ -5,9 +5,9 @@ var Schema = mongoose.Schema;
 
 
 var ItemSchema = new Schema({
-    outletId : {type: mongoose.Schema.ObjectId, ref : 'outlet'},
-    categoryId :{type: mongoose.Schema.ObjectId, ref : 'category'},
-    brandId :{type: mongoose.Schema.ObjectId, ref : 'brand'},
+    outletId : {type: mongoose.Schema.ObjectId, ref : 'outlet',required : true},
+    categoryId :{type: mongoose.Schema.ObjectId, ref : 'category',required : true},
+    brandId :{type: mongoose.Schema.ObjectId, ref : 'brand' ,required : true},
     title : String,
     cost:{
         type:Number,

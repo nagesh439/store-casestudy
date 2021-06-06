@@ -1,48 +1,49 @@
 var outlet = require('../models/outlet');
+const {auth} = require('../middleware/auth');
 
 
 module.exports = function (app) {
-    app.post('/createOutlet',(req,res)=>{
+    app.post('/createOutlet',auth,(req,res)=>{
         var qery = {
             "outletName" : req.body.outletName,
         }
-        outlet.findOne(qery).then(data =>{
-            console.log(data)
-            if(data && data._id){
-                res.json({
-                    status: "Fail",
-                    message: "Outlet Creation Failed",
-                    error: "Outlet already exists the same name"
-                  });
-            }else{
-                var outletdata = new outlet(req.body)
-                outletdata.save().then((item)=>{
-                    res.json({
-                        status: "success",
-                        message: "Outlet created successfully",
-                        outlet: item
-                      });
-                })
-                .catch(err=>{
-                    console.log("erro",err)
+        try{
+            outlet.findOne(qery).then(data =>{
+                console.log(data)
+                if(data && data._id){
                     res.json({
                         status: "Fail",
                         message: "Outlet Creation Failed",
-                        error: err
+                        error: "Outlet already exists the same name"
                       });
-                })
-            }
-        })
+                }else{
+                    var outletdata = new outlet(req.body)
+                    outletdata.save().then((item)=>{
+                        res.json({
+                            status: "success",
+                            message: "Outlet created successfully",
+                            outlet: item
+                          });
+                    })
+                    .catch(err=>{
+                        console.log("erro",err)
+                        res.json({
+                            status: "Fail",
+                            message: "Outlet Creation Failed",
+                            error: err
+                          });
+                    })
+                }
+            })
+        }
+        catch(err){
+            console.error(err);
+            res.status(400).send(err)
+        }
+      
     })
 
-    app.post('/updateOutlet',(req,res)=>{
-        let id = req.body.id;
-        outlet.finOneAndUpdate({'_id':id}).exec((err,data)=>{
-            console.log(err,data)
-        })
-    })
-
-    app.post('/updateOutlet',(req,res)=>{
+    app.post('/updateOutlet',auth,(req,res)=>{
         let id = req.query.id;
         try{
             const obj = {};

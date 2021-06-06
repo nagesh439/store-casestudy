@@ -1,0 +1,4 @@
+{
+    "mongoURL": "mongodb+srv://nageshvarma1993:nageshvarma1993@cluster0-ywtth.mongodb.net/stores?retryWrites=true&w=majority",
+    "secretKey":"scre"
+}
