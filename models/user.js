@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('../config.json');
 // const config = require("./config.json");
+const saltRound = 8;
 
 const userSchema = mongoose.Schema({
     name: { 
@@ -30,7 +31,7 @@ const userSchema = mongoose.Schema({
         required: true,
         trim: true,
         minLength: 4,
-        // match: /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
+        // match: /(?=^.{8,}$)((?=.\d)|(?=.\W+))(?![.\n])(?=.[A-Z])(?=.[a-z]).*$/
     },
     age: { 
         type: Number,
@@ -65,10 +66,10 @@ const userSchema = mongoose.Schema({
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email });
     console.log(user)
-    if(user){}else{throw new Error('Unable to login');}
-    console.log(password, user.password)
-    if(password == user.password){}else throw new Error('Unable to login');
-   
+    if(!user) throw new Error('Unable to login');
+    const isMatch = await bcrypt.compare(password, user.password);
+    if(!isMatch) throw new Error('Unable to login');
+
     return user;
 }
 
@@ -78,6 +79,23 @@ userSchema.methods.generateAuthToken = async function() {
     user.tokens = user.tokens.concat({ token });
     await user.save();
     return token;
+}
+
+userSchema.pre('save', async function(next) {   // No arrow function // 
+    const user = this;
+    if(user.isModified('password')) user.password = await bcrypt.hash(user.password, saltRound);
+    next();
+});
+
+userSchema.methods.toJSON = function() {/// restricting data to send to client
+    const user = this;
+    const userObject = user.toObject();
+
+    delete userObject.password;
+    delete userObject.tokens;
+    delete userObject.superAdmin;
+
+    return userObject;
 }
 
 
