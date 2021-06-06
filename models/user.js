@@ -46,7 +46,7 @@ const userSchema = mongoose.Schema({
             type: String,
             required: true
         },
-        loggedInAt:Date.now()
+        loggedInAt: {type:Date,default:new Date()}
     }],
    
     superAdmin: {
@@ -66,7 +66,6 @@ const userSchema = mongoose.Schema({
 
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email });
-    console.log(user)
     if(!user) throw new Error('Unable to login');
     const isMatch = await bcrypt.compare(password, user.password);
     if(!isMatch) throw new Error('Unable to login');
